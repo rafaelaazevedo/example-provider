@@ -31,11 +31,11 @@ describe("Pact Verification", () => {
     const fetchPactsDynamicallyOpts = {
       provider: "pactflow-example-provider",
       //consumerVersionTag: ['master', 'prod'], //the old way of specifying which pacts to verify
-      consumerVersionSelectors: [{ tag: 'master', latest: true }, { tag: 'prod', latest: true } ], // the new way of specifying which pacts to verify
+      consumerVersionSelectors: [{ tag: process.env.TRAVIS_BRANCH, fallbackTag: 'master', latest: true }, { tag: 'prod', latest: true } ], // the new way of specifying which pacts to verify
       pactBrokerUrl: process.env.PACT_BROKER_BASE_URL,
       enablePending: true,
-      includeWipPactsSince: undefined
-    }
+      includeWipPactsSince: "2020-01-01"
+      }
 
     const stateHandlers = {
       "products exists": () => {
